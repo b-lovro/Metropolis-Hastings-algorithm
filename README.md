@@ -43,15 +43,25 @@ The Metropolis-Hastings algorithm is a Markov chain Monte Carlo (MCMC) method fo
 ## Explanation of the Decision Step
 
 Pseudocode of the algorithm:
-1. Generate a candidate, denoted as \(x^*\). The value \(x^*\) is drawn from a proposal distribution of jumps, denoted as \(q(x_n, x^*)\), which depends on the current state of the Markov chain, \(x_n\).
+1. Generate a candidate, denoted as <code>x<sup>&Hat;</sup></code>. The value <code>x<sup>&Hat;</sup></code> is drawn from a proposal distribution of jumps, denoted as <code>q(x<sub>n;</sub>, x<sup>&Hat;</sup>)</code>, which depends on the current state of the Markov chain, <code>x<sub>n;</sub></code>.
+
+
+
 2. The next step is called the acceptance-rejection step. The move is accepted with the probability:
-    $$r(x_n, x^*) = \min\left\{ \frac{\pi(x^*) q(x^*, x_n)}{\pi(x_n) q(x_n, x^*)}, 1 \right\}$$
-    Now we need to decide whether to accept the candidate (in which case we take \(x_{n+1} = x^*\)) or reject it (in which case we take \(x_{n+1} = x_n\)). We make this decision by selecting a random number from the interval \([0, 1]\) and denote it by \(u\). Then \(x_{n+1}\) is chosen based on:
-    $$x_{n+1} =
-    \begin{cases}
-      x^* & \text{if } u \leq r(x_n, x^*) \\
-      x_n & \text{if } u > r(x_n, x^*)
-    \end{cases}$$
+    <br>
+    <code>r(x<sub>n;</sub>, x<sup>&Hat;</sup>) = min{ π(x<sup>&Hat;</sup>) q(x<sup>&Hat;</sup>, x<sub>n;</sub>) /  π(x<sub>n;</sub>) q(x<sub>n;</sub>, x<sup>&Hat;</sup>) , 1 }</code>
+    <br>
+    <br>
+    Now we need to decide whether to accept the candidate (in which case we take <code>x<sub>n+1;</sub> = x<sup>&Hat;</sup></code>) or reject it (in which case we take <code>x<sub>n+1;</sub> = x<sub>n;</sub></code>). We make this decision by selecting a random number from the interval <code>[0, 1]</code> and denote it by <code>u</code>. Then <code>x<sub>n+1;</sub></code> is chosen based on:
+    <br>
+    <br>
+    <code>
+    x<sub>n+1;</sub> =
+    <br>
+      { x<sup>&Hat;</sup> &nbsp;&nbsp; if &nbsp;&nbsp; u ≤ r(x<sub>n;</sub>, x<sup>&Hat;</sup>)<br>
+        x<sub>n;</sub> &nbsp;&nbsp; if &nbsp;&nbsp; u > r(x<sub>n;</sub>, x<sup>&Hat;</sup>)
+      }
+    </code>
 
 ### Why Use a Burn-In Period and Lagged Samples
 
@@ -69,12 +79,13 @@ Call `Metropolis_Hastings` with desired parameters to generate a Markov chain of
 ### Example
 
 ```python
-
 ## Using pyhton
 X, acceptance_rate = Metropolis_Hastings(num_samples=10000, num_lags=100, sigma=1, burn_in=100)
 Plot_Results(X, acceptance_rate,num_samples)
-
+```
+```python
 ## Using MATLAB
 Metropolis_Hastings(1000,100,-1,1,10);
+```
 
 
